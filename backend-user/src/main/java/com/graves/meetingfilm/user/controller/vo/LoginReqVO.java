@@ -3,6 +3,7 @@ package com.graves.meetingfilm.user.controller.vo;
 import com.graves.meetingfilm.utils.common.vo.BaseRequestVO;
 import com.graves.meetingfilm.utils.exception.CommonServiceException;
 import com.graves.meetingfilm.utils.util.ToolUtils;
+import lombok.Data;
 
 /**
 * @Author Graves
@@ -11,6 +12,7 @@ import com.graves.meetingfilm.utils.util.ToolUtils;
 * @Param
 * @return
 */
+@Data
 public class LoginReqVO extends BaseRequestVO {
 
     private String username;
