@@ -19,6 +19,7 @@
         <module>backend-user</module>
         <module>backend-common</module>
         <module>backend-utils</module>
+        <module>backend-show</module>
         <module>backend-eureka-server</module>
     </modules>
 
