@@ -22,9 +22,5 @@ mybatis-plus:
     db-column-underline: false
     refresh-mapper: true
 
-
-
-
-
 logging:
   config: classpath:logback.xml
