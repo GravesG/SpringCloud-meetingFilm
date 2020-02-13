@@ -3,6 +3,7 @@ package com.graves.meetingfilm.film.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Maps;
 import com.graves.meetingfilm.film.controller.vo.DescribeActorsRespVO;
+import com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO;
 import com.graves.meetingfilm.film.service.FilmServiceAPI;
 import com.graves.meetingfilm.utils.common.vo.BasePageVO;
 import com.graves.meetingfilm.utils.common.vo.BaseResponseVO;
@@ -38,6 +39,20 @@ public class FilmController {
         IPage<DescribeActorsRespVO> result = filmServiceAPI.describeActors(basePageVO.getNowPage(), basePageVO.getPageSize());
 
         Map<String, Object> actors = describePageResult(result, "actors");
+
+        return BaseResponseVO.success(actors);
+    }
+
+    // 获取电影列表
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public BaseResponseVO describeFilms(BasePageVO basePageVO) throws CommonServiceException {
+        // 参数校验
+        basePageVO.checkParam();
+
+        // 调用逻辑层，获取返回参数
+        IPage<DescribeFilmsRespVO> result = filmServiceAPI.describeFilms(basePageVO.getNowPage(), basePageVO.getPageSize());
+
+        Map<String, Object> actors = describePageResult(result, "films");
 
         return BaseResponseVO.success(actors);
     }

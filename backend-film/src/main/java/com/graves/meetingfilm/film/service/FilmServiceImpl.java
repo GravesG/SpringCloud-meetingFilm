@@ -2,6 +2,7 @@ package com.graves.meetingfilm.film.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.graves.meetingfilm.film.controller.vo.DescribeActorsRespVO;
+import com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +16,11 @@ import org.springframework.stereotype.Service;
 public class FilmServiceImpl implements FilmServiceAPI {
     @Override
     public IPage<DescribeActorsRespVO> describeActors(int nowPage, int pageSize) {
+        return null;
+    }
+
+    @Override
+    public IPage<DescribeFilmsRespVO> describeFilms(int nowPage, int pageSize) {
         return null;
     }
 }
