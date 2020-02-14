@@ -3,12 +3,14 @@ package com.graves.meetingfilm.film.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Maps;
 import com.graves.meetingfilm.film.controller.vo.DescribeActorsRespVO;
+import com.graves.meetingfilm.film.controller.vo.DescribeFilmRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO;
 import com.graves.meetingfilm.film.service.FilmServiceAPI;
 import com.graves.meetingfilm.utils.common.vo.BasePageVO;
 import com.graves.meetingfilm.utils.common.vo.BaseResponseVO;
 import com.graves.meetingfilm.utils.exception.CommonServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,9 +59,24 @@ public class FilmController {
         return BaseResponseVO.success(actors);
     }
 
+    // 根据id获取电影
+    @RequestMapping(value = "/{filmId}", method = RequestMethod.GET)
+    public BaseResponseVO describeFilmById(@PathVariable("filmId") String filmId) throws CommonServiceException {
+
+        DescribeFilmRespVO respVO = filmServiceAPI.describeFilmById(filmId);
+
+        if(respVO == null){
+            return BaseResponseVO.success();
+        }else {
+            return BaseResponseVO.success(respVO);
+        }
+
+    }
+
     // 获取分页对象得公共接口
     private Map<String, Object> describePageResult(IPage page, String title) {
         Map<String, Object> result = Maps.newHashMap();
+
         result.put("totalSize", page.getTotal());
         result.put("totalPages", page.getPages());
         result.put("pageSize", page.getSize());
