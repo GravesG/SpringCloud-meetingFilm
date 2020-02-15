@@ -1,7 +1,11 @@
 package com.graves.meetingfilm.film.dao.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.graves.meetingfilm.film.controller.vo.DescribeActorsRespVO;
 import com.graves.meetingfilm.film.dao.entity.MoocActorT;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.graves.meetingfilm.utils.exception.CommonServiceException;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MoocActorTMapper extends BaseMapper<MoocActorT> {
 
+    IPage<DescribeActorsRespVO> describeActors(Page<DescribeActorsRespVO> page) throws CommonServiceException;
 }

@@ -18,4 +18,20 @@
         <result column="film_time" property="filmTime" />
         <result column="film_status" property="filmStatus" />
     </resultMap>
+
+    <select id="describeFilms" resultType="com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO">
+        SELECT
+         film.`UUID` AS  filmId,
+         film.`film_status` AS filmStatus,
+         info.`film_en_name` AS filmEnName,
+         film.`film_score` AS filmScore,
+         film.`film_name` AS filmName,
+         film.`film_preSaleNum` AS preSaleNum,
+         film.`film_box_office` AS boxOffice,
+         film.`film_time` AS filmTime,
+         info.`film_length` AS filmLength,
+         film.`img_address` AS mainImg
+        FROM mooc_film_t film
+        LEFT JOIN mooc_film_info_t info ON film.`UUID` = info.`film_id`
+    </select>
 </mapper>
