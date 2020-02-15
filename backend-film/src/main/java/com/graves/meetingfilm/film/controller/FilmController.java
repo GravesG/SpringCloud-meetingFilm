@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.graves.meetingfilm.film.controller.vo.DescribeActorsRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeFilmRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO;
+import com.graves.meetingfilm.film.controller.vo.FilmSavedReqVO;
 import com.graves.meetingfilm.film.service.FilmServiceAPI;
 import com.graves.meetingfilm.utils.common.vo.BasePageVO;
 import com.graves.meetingfilm.utils.common.vo.BaseResponseVO;
@@ -71,6 +72,18 @@ public class FilmController {
             return BaseResponseVO.success(respVO);
         }
 
+    }
+
+    // 根据id获取电影
+    @RequestMapping(value = "/film:add", method = RequestMethod.POST)
+    public BaseResponseVO describeFilmById(FilmSavedReqVO filmSavedReqVO) throws CommonServiceException {
+
+        // 参数校验
+        filmSavedReqVO.checkParam();
+
+        filmServiceAPI.save(filmSavedReqVO);
+
+        return BaseResponseVO.success();
     }
 
     // 获取分页对象得公共接口

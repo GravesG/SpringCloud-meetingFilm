@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.graves.meetingfilm.film.controller.vo.DescribeActorsRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeFilmRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO;
+import com.graves.meetingfilm.film.controller.vo.FilmSavedReqVO;
 import com.graves.meetingfilm.utils.exception.CommonServiceException;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,10 @@ public class FilmServiceImpl implements FilmServiceAPI {
     @Override
     public DescribeFilmRespVO describeFilmById(String filmId) throws CommonServiceException {
         return null;
+    }
+
+    @Override
+    public void save(FilmSavedReqVO filmSavedReqVO) throws CommonServiceException {
+
     }
 }
