@@ -34,4 +34,30 @@
         FROM mooc_film_t film
         LEFT JOIN mooc_film_info_t info ON film.`UUID` = info.`film_id`
     </select>
+
+    <select id="descrbeFilmById" resultType="com.graves.meetingfilm.film.controller.vo.DescribeFilmRespVO">
+        SELECT
+         film.`UUID` AS filmId,
+         film.`film_name` AS filmName,
+         info.`film_length` AS filmLength,
+         (SELECT
+             GROUP_CONCAT(show_name SEPARATOR ',')
+            FROM mooc_cat_dict_t cat
+            WHERE FIND_IN_SET (
+             cat.`UUID`,(
+               SELECT
+                 REPLACE(TRIM(BOTH '#' FROM film.film_cats),"#",",")
+               FROM mooc_film_t f
+               WHERE f.uuid = film.`uuid`
+             )
+            )) AS filmCats,
+         (SELECT GROUP_CONCAT(role_name SEPARATOR ',')
+            FROM mooc_film_actor_t actor WHERE actor.film_id = film.uuid) AS actors,
+         film.`img_address` AS imgAddress,
+         info.`film_imgs` AS subAddress
+        FROM mooc_film_t film
+        LEFT JOIN mooc_film_info_t info
+        ON film.`UUID` = info.`film_id`
+        where film.`uuid` = #{filmId}
+    </select>
 </mapper>

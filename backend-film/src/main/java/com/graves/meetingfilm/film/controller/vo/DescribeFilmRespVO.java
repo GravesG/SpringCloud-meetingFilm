@@ -1,5 +1,7 @@
 package com.graves.meetingfilm.film.controller.vo;
 
+import lombok.Data;
+
 /**
  * @author Graves
  * @title: DescribeFilmRespVO
@@ -7,6 +9,7 @@ package com.graves.meetingfilm.film.controller.vo;
  * @description: 根据id获取电影
  * @date 2020/2/14 21:43
  */
+@Data
 public class DescribeFilmRespVO {
 
      private String filmId;

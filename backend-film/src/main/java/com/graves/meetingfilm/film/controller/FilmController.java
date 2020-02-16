@@ -10,11 +10,9 @@ import com.graves.meetingfilm.film.service.FilmServiceAPI;
 import com.graves.meetingfilm.utils.common.vo.BasePageVO;
 import com.graves.meetingfilm.utils.common.vo.BaseResponseVO;
 import com.graves.meetingfilm.utils.exception.CommonServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -25,6 +23,7 @@ import java.util.Map;
  * @description: 影片展示模块
  * @date 2020/2/13 22:28
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/films")
 public class FilmController {
@@ -76,7 +75,7 @@ public class FilmController {
 
     // 根据id获取电影
     @RequestMapping(value = "/film:add", method = RequestMethod.POST)
-    public BaseResponseVO describeFilmById(FilmSavedReqVO filmSavedReqVO) throws CommonServiceException {
+    public BaseResponseVO describeFilmById(@RequestBody FilmSavedReqVO filmSavedReqVO) throws CommonServiceException {
 
         // 参数校验
         filmSavedReqVO.checkParam();
