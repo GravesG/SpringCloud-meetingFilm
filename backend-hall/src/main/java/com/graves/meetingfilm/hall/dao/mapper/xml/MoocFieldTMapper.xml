@@ -13,4 +13,17 @@
         <result column="hall_name" property="hallName" />
         <result column="price" property="price" />
     </resultMap>
+
+    <select id="describeHalls" resultType="com.graves.meetingfilm.hall.controller.vo.HallsRespVO">
+        SELECT
+          (SELECT cinema_name FROM mooc_cinema_t c WHERE c.`uuid` = fie.cinema_id) AS cinemaName,
+          fie.hall_name AS hallName,
+          (SELECT film_name FROM mooc_film_t f WHERE f.`uuid` = fie.film_id) AS filmName,
+          (SELECT show_name FROM mooc_hall_dict_t d WHERE d.`uuid` = fie.hall_id) AS hallTypeName,
+          fie.begin_time AS beginTime,
+          fie.end_time AS endTime,
+          fie.price AS filmPrice
+        FROM mooc_field_t fie
+        ${ew.customSqlSegment}
+    </select>
 </mapper>
