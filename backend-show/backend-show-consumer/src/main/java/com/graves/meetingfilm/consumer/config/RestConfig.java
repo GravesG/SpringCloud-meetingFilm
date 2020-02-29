@@ -1,9 +1,8 @@
 package com.graves.meetingfilm.consumer.config;
 
 import com.graves.meetingfilm.consumer.ribbon.rules.MyRule;
-import com.netflix.loadbalancer.IRule;
-import com.netflix.loadbalancer.RandomRule;
-import com.netflix.loadbalancer.RoundRobinRule;
+import com.netflix.loadbalancer.*;
+import com.netflix.niws.loadbalancer.NIWSDiscoveryPing;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +33,12 @@ public class RestConfig {
     */
     @Bean
     public IRule iRule(){
-        return new MyRule();
+        return new RoundRobinRule();
+    }
+
+    @Bean
+    public IPing iPing(){
+        //return new PingUrl(false,"/abc");
+        return new NIWSDiscoveryPing();
     }
 }
