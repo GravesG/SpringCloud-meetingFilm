@@ -81,4 +81,42 @@ public class CommandTest {
             }
         });
     }
+
+    @Test
+    public void toObserveTest() throws InterruptedException {
+        long beginTime = System.currentTimeMillis();
+
+        CommandDemo commandDemo1 = new CommandDemo("toObservable1");
+
+        Observable<String> toObservable1 = commandDemo1.toObservable();
+
+        // 阻塞式调用
+        String result = toObservable1.toBlocking().single();
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("result="+result+" , speeding="+(endTime-beginTime));
+
+        CommandDemo commandDemo2 = new CommandDemo("toObservable2");
+        Observable<String> toObservable2 = commandDemo2.toObservable();
+        // 非阻塞式调用
+        toObservable2.subscribe(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+                System.err.println("toObservable , onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("toObservable , onError - throwable="+throwable);
+            }
+
+            @Override
+            public void onNext(String result) {
+                long endTime = System.currentTimeMillis();
+                System.err.println("toObservable , onNext result="+result+" speend:"+(endTime - beginTime));
+            }
+        });
+
+        Thread.sleep(2000l);
+    }
 }
