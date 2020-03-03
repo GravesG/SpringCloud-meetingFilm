@@ -30,4 +30,9 @@ public class CommandDemo extends HystrixCommand<String> {
 
         return result;
     }
+
+    @Override
+    protected String getCacheKey() {
+        return String.valueOf(name);
+    }
 }

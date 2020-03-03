@@ -1,5 +1,6 @@
 package com.graves.hystrix.show.command;
 
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 import rx.Observable;
@@ -118,5 +119,40 @@ public class CommandTest {
         });
 
         Thread.sleep(2000l);
+    }
+
+    /**
+    * @Author Graves
+    * @Description //请求缓存
+    * @Date  23:58
+    * @Param []
+    * @return void
+    */
+    @Test
+    public void requestCache(){
+        // 开启请求上下文
+        HystrixRequestContext requestContext = HystrixRequestContext.initializeContext();
+        long beginTime = System.currentTimeMillis();
+
+        CommandDemo c1 = new CommandDemo("c1");
+        CommandDemo c2 = new CommandDemo("c2");
+        CommandDemo c3 = new CommandDemo("c1");
+
+        // 第一次请求
+        String r1 = c1.execute();
+
+        System.out.println("result="+r1+" , speeding="+(System.currentTimeMillis()-beginTime));
+
+        // 第二次请求
+        String r2 = c2.execute();
+
+        System.out.println("result="+r2+" , speeding="+(System.currentTimeMillis()-beginTime));
+
+        // 第三次请求
+        String r3 = c3.execute();
+        System.out.println("result="+r3+" , speeding="+(System.currentTimeMillis()-beginTime));
+
+        // 请求上下文关闭
+        requestContext.close();
     }
 }
