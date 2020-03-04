@@ -2,6 +2,7 @@ package com.graves.hystrix.show.command;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandProperties;
 import lombok.Data;
 
 /**
@@ -18,7 +19,10 @@ public class CommandDemo extends HystrixCommand<String> {
 
     public CommandDemo(String name) {
         super(Setter
-                .withGroupKey(HystrixCommandGroupKey.Factory.asKey("CommandHelloWorld")));
+                .withGroupKey(HystrixCommandGroupKey.Factory.asKey("CommandHelloWorld"))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.defaultSetter()
+                        .withRequestCacheEnabled(false)//请求缓存的开关
+                ));
         this.name = name;
     }
 
