@@ -20,6 +20,8 @@ public class CommandCollapser extends HystrixCollapser<List<String>,String,Integ
 
     public CommandCollapser(Integer id){
         super(Setter.withCollapserKey(HystrixCollapserKey.Factory.asKey("CommandCollapser"))
+                .andCollapserPropertiesDefaults(HystrixCollapserProperties.defaultSetter()
+                .withTimerDelayInMilliseconds(1000))
                 );
         this.id = id;
     }
