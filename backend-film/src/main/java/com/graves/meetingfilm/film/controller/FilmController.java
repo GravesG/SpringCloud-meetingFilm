@@ -60,7 +60,7 @@ public class FilmController {
     }
 
     // 根据id获取电影
-    @RequestMapping(value = "/{filmId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{filmId:.+}", method = RequestMethod.GET)
     public BaseResponseVO describeFilmById(@PathVariable("filmId") String filmId) throws CommonServiceException {
 
         DescribeFilmRespVO respVO = filmServiceAPI.describeFilmById(filmId);
