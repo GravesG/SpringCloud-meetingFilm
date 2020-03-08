@@ -3,6 +3,7 @@ package com.graves.hystrix.show.command;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
+import com.netflix.hystrix.HystrixThreadPoolKey;
 import lombok.Data;
 
 /**
@@ -22,7 +23,9 @@ public class CommandDemo extends HystrixCommand<String> {
                 .withGroupKey(HystrixCommandGroupKey.Factory.asKey("CommandHelloWorld"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.defaultSetter()
                         .withRequestCacheEnabled(false)//请求缓存的开关
-                ));
+                        // 切换线程池隔离还是信号量隔离
+                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
+                ).andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("MyThread")));
         this.name = name;
     }
 
