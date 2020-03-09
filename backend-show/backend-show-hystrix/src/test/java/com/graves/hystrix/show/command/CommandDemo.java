@@ -33,6 +33,15 @@ public class CommandDemo extends HystrixCommand<String> {
     }
 
     @Override
+    protected String getFallback() {
+        String result = "Fallback name : "+ name;
+
+        System.err.println(result+" , currentThread-"+Thread.currentThread().getName());
+
+        return result;
+    }
+
+    @Override
     protected String run() throws Exception {
         String result = "CommandHelloWorld name:" + name;
         //Thread.sleep(800L);
