@@ -190,4 +190,43 @@ public class CommandTest {
         // queue 2
 
     }
+
+    /**
+    * @Author Graves
+    * @Description //信号量隔离
+    * @Date  22:49
+    * @Param []
+    * @return void
+    */
+    @Test
+    public void semTest() throws InterruptedException {
+        MyThread t1 = new MyThread("t1");
+        MyThread t2 = new MyThread("t2");
+        MyThread t3 = new MyThread("t3");
+        MyThread t4 = new MyThread("t4");
+        MyThread t5 = new MyThread("t5");
+
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
+
+        Thread.sleep(2000l);
+    }
+}
+
+class MyThread extends Thread{
+
+    private String name;
+    public MyThread(String name){
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        CommandDemo commandDemo = new CommandDemo(name);
+        System.out.println("commandDemo result="+commandDemo.execute());
+    }
 }

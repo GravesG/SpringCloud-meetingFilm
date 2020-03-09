@@ -21,8 +21,9 @@ public class CommandDemo extends HystrixCommand<String> {
                 .andCommandPropertiesDefaults(HystrixCommandProperties.defaultSetter()
                                 .withRequestCacheEnabled(false)//请求缓存的开关
                                 // 切换线程池隔离还是信号量隔离
-//                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
-                                .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
+                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
+                                .withExecutionIsolationSemaphoreMaxConcurrentRequests(2)
+//                                .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
                 ).andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("MyThread"))
                     .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.defaultSetter()
                             .withCoreSize(2)
