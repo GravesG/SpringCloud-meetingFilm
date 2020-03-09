@@ -155,4 +155,39 @@ public class CommandTest {
         // 请求上下文关闭
         requestContext.close();
     }
+
+    /**
+    * @Author Graves
+    * @Description //线程隔离
+    * @Date  22:30
+    * @Param []
+    * @return void
+    */
+    @Test
+    public void threadTest() throws ExecutionException, InterruptedException {
+        CommandDemo c1 = new CommandDemo("c1");
+        CommandDemo c2 = new CommandDemo("c2");
+        CommandDemo c3 = new CommandDemo("c3");
+        CommandDemo c4 = new CommandDemo("c4");
+        CommandDemo c5 = new CommandDemo("c5");
+
+        Future<String> q1 = c1.queue();
+        Future<String> q2 = c2.queue();
+        Future<String> q3 = c3.queue();
+        Future<String> q4 = c4.queue();
+        Future<String> q5 = c5.queue();
+
+        String r1 = q1.get();
+        String r2 = q2.get();
+        String r3 = q3.get();
+        String r4 = q4.get();
+        String r5 = q5.get();
+
+        System.out.println(r1+","+r2+","+r3+","+r4+","+r5);
+
+        // 1,2,3,4,5
+        // core 1,2  max 1
+        // queue 2
+
+    }
 }

@@ -1,9 +1,6 @@
 package com.graves.hystrix.show.command;
 
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandProperties;
-import com.netflix.hystrix.HystrixThreadPoolKey;
+import com.netflix.hystrix.*;
 import lombok.Data;
 
 /**
@@ -22,17 +19,22 @@ public class CommandDemo extends HystrixCommand<String> {
         super(Setter
                 .withGroupKey(HystrixCommandGroupKey.Factory.asKey("CommandHelloWorld"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.defaultSetter()
-                        .withRequestCacheEnabled(false)//请求缓存的开关
-                        // 切换线程池隔离还是信号量隔离
-                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
-                ).andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("MyThread")));
+                                .withRequestCacheEnabled(false)//请求缓存的开关
+                                // 切换线程池隔离还是信号量隔离
+//                        .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
+                                .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
+                ).andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("MyThread"))
+                    .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.defaultSetter()
+                            .withCoreSize(2)
+                            .withMaximumSize(3).withAllowMaximumSizeToDivergeFromCoreSize(true)
+                            .withMaxQueueSize(2)));
         this.name = name;
     }
 
     @Override
     protected String run() throws Exception {
         String result = "CommandHelloWorld name:" + name;
-
+        //Thread.sleep(800L);
         System.err.println(result + "currentThread-" + Thread.currentThread().getName());
 
         return result;
