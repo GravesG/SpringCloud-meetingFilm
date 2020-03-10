@@ -24,11 +24,14 @@ public class CommandDemo extends HystrixCommand<String> {
                         .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
                                 .withExecutionIsolationSemaphoreMaxConcurrentRequests(2)
 //                                .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
+                        .withCircuitBreakerRequestVolumeThreshold(2)// 单位时间得请求阈值
+                        .withCircuitBreakerErrorThresholdPercentage(50)// 当满足请i去阈值时，超过50%则开启熔断
                 ).andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("MyThread"))
-                    .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.defaultSetter()
-                            .withCoreSize(2)
-                            .withMaximumSize(3).withAllowMaximumSizeToDivergeFromCoreSize(true)
-                            .withMaxQueueSize(2)));
+//                    .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.defaultSetter()
+//                            .withCoreSize(2)
+//                            .withMaximumSize(3).withAllowMaximumSizeToDivergeFromCoreSize(true)
+//                            .withMaxQueueSize(2))
+        );
         this.name = name;
     }
 
@@ -44,6 +47,11 @@ public class CommandDemo extends HystrixCommand<String> {
     @Override
     protected String run() throws Exception {
         String result = "CommandHelloWorld name:" + name;
+
+        if(name.startsWith("graves")){
+            int i = 1/0;
+        }
+
         //Thread.sleep(800L);
         System.err.println(result + "currentThread-" + Thread.currentThread().getName());
 

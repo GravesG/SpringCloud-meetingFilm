@@ -215,6 +215,45 @@ public class CommandTest {
 
         Thread.sleep(2000l);
     }
+
+    /**
+    * @Author Graves
+    * @Description //熔断测试
+    * @Date  23:14
+    * @Param []
+    * @return void
+    */
+    @Test
+    public void CBTest() throws InterruptedException {
+        // 正确 - 业务
+        CommandDemo c1 = new CommandDemo("imooc");
+        System.out.println(c1.execute());
+
+        // 错误 - 业务
+        CommandDemo c2 = new CommandDemo("graves-1");
+        System.out.println(c2.execute());
+
+        // 正确 - 业务
+        Thread.sleep(1000l);
+        CommandDemo c3 = new CommandDemo("imooc");
+        System.out.println(c3.execute());
+
+        // 半熔断状态
+        Thread.sleep(5000l);
+        // 错误 - 业务
+//        CommandDemo c4 = new CommandDemo("graves-2");
+//        System.out.println(c4.execute());
+
+        // 正确 - 业务
+        CommandDemo c5 = new CommandDemo("imooc");
+        System.out.println(c5.execute());
+
+
+        // 成功
+        CommandDemo c6 = new CommandDemo("imooc");
+        System.out.println(c6.execute());
+
+    }
 }
 
 class MyThread extends Thread{
