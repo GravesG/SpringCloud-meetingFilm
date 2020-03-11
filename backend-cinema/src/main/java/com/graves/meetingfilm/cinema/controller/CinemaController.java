@@ -10,6 +10,8 @@ import com.graves.meetingfilm.utils.common.vo.BasePageVO;
 import com.graves.meetingfilm.utils.common.vo.BaseRequestVO;
 import com.graves.meetingfilm.utils.common.vo.BaseResponseVO;
 import com.graves.meetingfilm.utils.exception.CommonServiceException;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,10 +44,42 @@ public class CinemaController {
 
         return BaseResponseVO.success();
     }
+
+    public BaseResponseVO BaseResponseVO(BasePageVO pageVO) throws CommonServiceException{
+        Map<String,String> result = Maps.newHashMap();
+        result.put("code","500");
+        result.put("message","请求处理降级返回");
+        return BaseResponseVO.success(result);
+    }
+
+    @HystrixCommand(fallbackMethod = "BaseResponseVO",
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.strategy", value = "THREAD"),
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value= "1000"),
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50")
+            },
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize", value = "1"),
+                    @HystrixProperty(name = "maxQueueSize", value = "10"),
+                    @HystrixProperty(name = "keepAliveTimeMinutes", value = "1000"),
+                    @HystrixProperty(name = "queueSizeRejectionThreshold", value = "8"),
+                    @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "12"),
+                    @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "1500")
+            },ignoreExceptions = CommonServiceException.class)
     @RequestMapping(value = "",method = RequestMethod.GET)
     public BaseResponseVO describeCinemas(BasePageVO pageVO) throws CommonServiceException {
 
         IPage<DescribeCinemasRespVO> describeCinemasRespVOIPage = cinemaServiceAPI.describeCinemas(pageVO.getNowPage(), pageVO.getPageSize());
+
+        if(pageVO.getNowPage() > 10000){
+            throw new CommonServiceException(400,"nowPage太大了，不支持此操作");
+//            try {
+//                Thread.sleep(2000l);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+        }
 
         // 调用封装的分页返回方法
         Map<String, Object> map = describePageResult(describeCinemasRespVOIPage, "cinemas");
