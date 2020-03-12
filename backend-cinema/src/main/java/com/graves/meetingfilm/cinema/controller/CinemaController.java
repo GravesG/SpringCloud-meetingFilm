@@ -46,6 +46,17 @@ public class CinemaController {
     }
 
     public BaseResponseVO BaseResponseVO(BasePageVO pageVO) throws CommonServiceException{
+        /*
+            打发票， -》 没打印纸了， 换台机器或者下次再试
+            -》 触发告警 -》 告知运维人员，打印发票业务挂了
+         */
+        // describeCinemas -》 获取影院列表 -> 在Redis中查询影院列表[redis挂了，或者数据没了] -> 获取超时
+
+        // fallback里捕获到超时或者数据内容与分页数不一致
+
+        // fallback就在数据库中查询真实的影院信息
+
+        // 返回一定是成功，或者业务处理失败
         Map<String,String> result = Maps.newHashMap();
         result.put("code","500");
         result.put("message","请求处理降级返回");
