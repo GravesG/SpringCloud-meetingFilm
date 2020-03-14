@@ -63,6 +63,7 @@ public class CinemaController {
         return BaseResponseVO.success(result);
     }
 
+    // 注意线程池的设置
     @HystrixCommand(fallbackMethod = "BaseResponseVO",
             commandProperties = {
                     @HystrixProperty(name = "execution.isolation.strategy", value = "THREAD"),
