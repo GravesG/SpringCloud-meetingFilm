@@ -16,7 +16,7 @@ public class ProviderController {
     @Value("${server.port}")
     private int port;
 
-    @RequestMapping(value = "/provider/sayhello")
+    @RequestMapping(value = "/provider/sayhello",method = RequestMethod.GET)
     public String providerSayHello(String message){
 
         log.error("provder sayhello port:{}, message:{}",port,message);
