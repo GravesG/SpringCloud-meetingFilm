@@ -24,4 +24,14 @@ public class ProviderController {
         return "Provider sayhello port:"+port+" , message:"+message;
     }
 
+    @RequestMapping(value = "/provider/{providerId}/sayhello", method = RequestMethod.POST)
+    public String postTest(
+            @RequestHeader("author") String author,
+            @PathVariable("providerId")String providerId,
+            @RequestBody String json){
+
+        log.error("provder sayhello port:{},author:{} , providerId:{}, message:{}",port,author,providerId,json);
+
+        return "Provider sayhello port:"+port+" , message:"+json;
+    }
 }

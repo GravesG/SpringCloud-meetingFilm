@@ -1,9 +1,8 @@
 package com.graves.meetingfilm.consumer.feign;
 
+import com.graves.meetingfilm.consumer.feign.vo.UserModel;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Graves
@@ -18,4 +17,10 @@ public interface ProviderApi {
 
     @RequestMapping(value = "/provider/sayhello",method = RequestMethod.GET)
     String invokeProviderController(@RequestParam("message") String message);
+
+    @RequestMapping(value = "/provider/{providerId}/sayhello",method = RequestMethod.POST)
+    String providerPost(
+            @RequestHeader("author") String author,
+            @PathVariable("providerId")String providerId,
+            @RequestBody UserModel userModel);
 }
