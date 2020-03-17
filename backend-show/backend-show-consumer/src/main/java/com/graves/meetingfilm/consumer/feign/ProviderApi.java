@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.*;
  * @date 2020/3/15 22:37
  */
 
-@FeignClient(name = "providerTest",
+@FeignClient(name = "hello-service-provider",
         primary = true,
         path = "/provider",
-        configuration = FeignHelloConf.class,
-        url = "http://localhost:7101")
+        fallbackFactory = FallbackFactory.class
+//        fallback = ProviderFallbackAPIImpl.class
+//        configuration = FeignHelloConf.class,
+//        url = "http://localhost:7101"
+)
 public interface ProviderApi {
 
-//    @RequestMapping(value = "/sayhello",method = RequestMethod.GET)
-//    String invokeProviderController(@RequestParam("message") String message);
+    @RequestMapping(value = "/sayhello",method = RequestMethod.GET)
+    String invokeProviderController(@RequestParam("message") String message);
 
 //    @RequestMapping(value = "/{providerId}/sayhello",method = RequestMethod.POST)
 //    String providerPost(
@@ -31,7 +34,8 @@ public interface ProviderApi {
 //            @PathVariable("providerId")String providerId,
 //            @RequestBody UserModel userModel);
 
-    @RequestLine("GET /sayhello?message={message}")
-    String invokeProviderController(@Param("message") String message);
+
+//    @RequestLine("GET /sayhello?message={message}")
+//    String invokeProviderController(@Param("message") String message);
 
 }

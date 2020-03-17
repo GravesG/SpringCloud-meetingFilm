@@ -12,3 +12,7 @@ spring:
 
 logging:
   config: classpath:logback.xml
+
+feign:
+  hystrix:
+    enabled: true
