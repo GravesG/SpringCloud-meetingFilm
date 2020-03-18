@@ -1,4 +1,4 @@
-package com.graves.meetingfilm.film.controller.vo;
+package com.graves.meetingfilm.apis.film.vo;
 
 import lombok.Data;
 
