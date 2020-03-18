@@ -35,7 +35,7 @@
         LEFT JOIN mooc_film_info_t info ON film.`UUID` = info.`film_id`
     </select>
 
-    <select id="descrbeFilmById" resultType="com.graves.meetingfilm.film.controller.vo.DescribeFilmRespVO">
+    <select id="descrbeFilmById" resultType="com.graves.meetingfilm.apis.film.vo.DescribeFilmRespVO">
         SELECT
          film.`UUID` AS filmId,
          film.`film_name` AS filmName,

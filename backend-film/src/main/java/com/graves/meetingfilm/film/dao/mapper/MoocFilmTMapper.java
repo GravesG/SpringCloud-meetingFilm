@@ -2,7 +2,7 @@ package com.graves.meetingfilm.film.dao.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.graves.meetingfilm.film.controller.vo.DescribeFilmRespVO;
+import com.graves.meetingfilm.apis.film.vo.DescribeFilmRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO;
 import com.graves.meetingfilm.film.dao.entity.MoocFilmT;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -2,8 +2,8 @@ package com.graves.meetingfilm.film.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Maps;
+import com.graves.meetingfilm.apis.film.vo.DescribeFilmRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeActorsRespVO;
-import com.graves.meetingfilm.film.controller.vo.DescribeFilmRespVO;
 import com.graves.meetingfilm.film.controller.vo.DescribeFilmsRespVO;
 import com.graves.meetingfilm.film.controller.vo.FilmSavedReqVO;
 import com.graves.meetingfilm.film.service.FilmServiceAPI;
@@ -60,7 +60,7 @@ public class FilmController {
     }
 
     // 根据id获取电影
-    @RequestMapping(value = "/{filmId:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{filmId}", method = RequestMethod.GET)
     public BaseResponseVO describeFilmById(@PathVariable("filmId") String filmId) throws CommonServiceException {
 
         DescribeFilmRespVO respVO = filmServiceAPI.describeFilmById(filmId);

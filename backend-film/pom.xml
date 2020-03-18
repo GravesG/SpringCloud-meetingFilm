@@ -26,6 +26,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.graves.meetingfilm</groupId>
+            <artifactId>backend-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
