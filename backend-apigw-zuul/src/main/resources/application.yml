@@ -12,6 +12,8 @@ zuul:
       path: /film-api/**   # 匹配规则
     cinema-service:
       path: /cinema-api/**
+  sensitive-headers: "graves"
+
 
 hystrix:
   command:
@@ -21,7 +23,7 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 10
+            timeoutInMilliseconds: 10000
 
 logging:
   config: classpath:logback.xml
