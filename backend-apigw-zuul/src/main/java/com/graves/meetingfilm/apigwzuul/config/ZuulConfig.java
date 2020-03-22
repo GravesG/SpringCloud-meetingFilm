@@ -1,5 +1,6 @@
 package com.graves.meetingfilm.apigwzuul.config;
 
+import com.graves.meetingfilm.apigwzuul.filters.JWTFilter;
 import com.graves.meetingfilm.apigwzuul.filters.MyFilter;
 import lombok.Builder;
 import org.springframework.context.annotation.Bean;
@@ -18,5 +19,10 @@ public class ZuulConfig {
     @Bean
     public MyFilter initMyFilter(){
         return new MyFilter();
+    }
+
+    @Bean
+    public JWTFilter initJWTFilter(){
+        return new JWTFilter();
     }
 }

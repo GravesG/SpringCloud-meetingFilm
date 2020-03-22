@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 eureka:
   client:
@@ -7,12 +7,32 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 zuul:
-  routes:  ## 路由规则
-    film-service:   ## application.name - > 服务名称  service-id
-      path: /film-api/**   # 匹配规则
-    cinema-service:
-      path: /cinema-api/**
-  sensitive-headers: "graves"
+  prefix: "/meetingfilm/"  ## 统一前缀
+  routes:
+    meetingfilm-user:
+      path: /userapi/**
+      serviceId: user-service
+      retryable: true   # 是否允许重试 ， 饿汉模式
+    meetingfilm-cinema:
+      path: /cinemaapi/**
+      serviceId: cinema-service
+      retryable: true
+    meetingfilm-film:
+      path: /filmapi/**
+      serviceId: film-service
+      retryable: true
+    meetingfilm-hall:
+      path: /hallapi/**
+      serviceId: hall-service
+      retryable: true
+
+
+#  routes:  ## 路由规则
+#    film-service:   ## application.name - > 服务名称  service-id
+#      path: /film-api/**   # 匹配规则
+#    cinema-service:
+#      path: /cinema-api/**
+#  sensitive-headers: "graves"
 
 
 hystrix:
