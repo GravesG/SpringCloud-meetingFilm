@@ -22,6 +22,10 @@
         <module>backend-show</module>
         <module>backend-film</module>
         <module>backend-eureka-server</module>
+        <module>backend-cinema</module>
+        <module>backend-hall</module>
+        <module>backend-api</module>
+        <module>backend-apigw-zuul</module>
     </modules>
 
     <properties>
@@ -106,6 +110,12 @@
             <dependency>
                 <groupId>com.graves.meetingfilm</groupId>
                 <artifactId>backend-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.graves.meetingfilm</groupId>
+                <artifactId>backend-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -47,7 +49,13 @@ public class FilmController {
 
     // 获取电影列表
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public BaseResponseVO describeFilms(BasePageVO basePageVO) throws CommonServiceException {
+    public BaseResponseVO describeFilms(HttpServletRequest request, BasePageVO basePageVO) throws CommonServiceException {
+        // Header信息都打印一下
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()){
+            String headName = headerNames.nextElement();
+            log.error("describeFilms - headName:{}, headValue:{}", headName, request.getHeader(headName));
+        }
         // 参数校验
         basePageVO.checkParam();
 
