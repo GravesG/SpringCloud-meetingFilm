@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<suite name="自动测试报告">
+    <test name="测试模块">
+        <classes>
+            <class name="com.graves.meetingfilm.testng.demo.ReportTest" />
+            <class name="com.graves.meetingfilm.testng.demo.HelloWorld" />
+        </classes>
+    </test>
+
+    <!--<test name="films">
+        <classes>
+            <class name="com.graves.meetingfilm.testng.films.FilmsTest" />
+        </classes>
+    </test>-->
+
+    <listeners>
+        <listener class-name="com.graves.meetingfilm.testng.conf.ExtentTestNGIReporterListener" />
+    </listeners>
+
+</suite>
