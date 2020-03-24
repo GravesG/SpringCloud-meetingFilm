@@ -16,16 +16,17 @@
     <description>meetingfilm后端系统</description>
 
     <modules>
-        <module>backend-user</module>
-        <module>backend-common</module>
-        <module>backend-utils</module>
-        <module>backend-show</module>
-        <module>backend-film</module>
         <module>backend-eureka-server</module>
+        <module>backend-apigw-zuul</module>
+        <module>backend-film</module>
         <module>backend-cinema</module>
         <module>backend-hall</module>
         <module>backend-api</module>
-        <module>backend-apigw-zuul</module>
+        <module>backend-show</module>
+
+        <module>backend-user</module>
+        <module>backend-utils</module>
+        <module>backend-common</module>
     </modules>
 
     <properties>
